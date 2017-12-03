@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\Projects\HomeLess_In_Need\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e88e57159e2db4d6f9c4594c2e2ab5f09342db18">
+        <dex dex="D:\Projects\HomeLess_In_Need\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_290402c7a5ef47b2cd8edf8924ea043f3701e8e8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Projects\HomeLess_In_Need\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="D:\Projects\HomeLess_In_Need\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_093958e022e22378fdd66a55f13262a85fa120f3\classes.dex" />
+    </item>
+
+</items>

@@ -13,9 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,10 +33,13 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
  * Created by nenghui on 11/30/17.
@@ -38,26 +49,37 @@ public class ReportSubmit extends AppCompatActivity {
 
     ImageView Image;
     Button ButtonUpload;
+    EditText InputText;
+    String inputString;
+    String reportPostUrl = "http://52.206.200.215:3000/api/v1/report";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_reportsubmit);
 
+        Bundle bundle=getIntent().getExtras();
+        this.setTitle("Welcome! " + bundle.getString("name"));
+
+
+        InputText = (EditText)findViewById(R.id.editText);
         Image = (ImageView) findViewById(R.id.imageView);
 
         ButtonUpload = (Button)findViewById(R.id.button);
 
-        Intent intent = getIntent();
-        final String picUrl = intent.getExtras().getString("PicUrl");
-
-        Log.d("Re URL", picUrl);
-        Image.setImageBitmap(BitmapFactory.decodeFile(picUrl));
+//        Intent intent = getIntent();
+//        final String picUrl = intent.getExtras().getString("PicUrl");
+//
+//        Log.d("Re URL", picUrl);
+//        Image.setImageBitmap(BitmapFactory.decodeFile(picUrl));
 
         ButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                inputString = InputText.getText().toString();
+                Log.d("Input:", inputString);
+                new httpPost().execute(reportPostUrl,inputString);
 //                new uploadFileToServerTask().execute(picUrl);
 //                MultipartUtility multipart = new MultipartUtility(picUrl, charset);
 //
@@ -92,6 +114,105 @@ public class ReportSubmit extends AppCompatActivity {
 
 
     }
+
+    public class httpPost extends AsyncTask<String, String, String> {
+
+        HttpURLConnection urlConnection;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String urlString = params[0]; // URL to call
+
+            String data = params[1]; //data to post
+
+            OutputStream out = null;
+            try {
+
+                URL url = new URL(urlString);
+
+                 urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+
+                out = new BufferedOutputStream(urlConnection.getOutputStream());
+                BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(out, "UTF-8"));
+                writer.write(data);
+                writer.flush();
+                writer.close();
+                out.close();
+                urlConnection.connect();
+
+                int responseCode=urlConnection.getResponseCode();
+
+                if (responseCode == HTTP_OK) {
+
+                    BufferedReader in=new BufferedReader(new
+                            InputStreamReader(
+                            urlConnection.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line="";
+
+                    while((line = in.readLine()) != null) {
+                        sb.append(line);
+                        Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                        break;
+                    }
+                    in.close();
+                    return sb.toString();
+                }
+                else {
+                    return new String("false : "+responseCode);
+                }
+            }
+            catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+        }
+        return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(!result.equals(null)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Waiting for Server response... ", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    try {
+                        int reportID;
+                        JSONObject json = new JSONObject(result);
+
+                        reportID = json.getInt("reportId");
+                        Log.d("PostExecute", ""+ reportID);
+
+
+//                            Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+//                            intent.putExtra("reportKindname", reportKindname);
+//                            intent.putExtra("name", name);
+//                            startActivity(intent);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+        }
+    }
+
+
+
 
 
     public class MultipartUtility {
@@ -206,7 +327,7 @@ public class ReportSubmit extends AppCompatActivity {
 
             // checks server's status code first
             int status = httpConn.getResponseCode();
-            if (status == HttpURLConnection.HTTP_OK) {
+            if (status == HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         httpConn.getInputStream()));
                 String line = null;

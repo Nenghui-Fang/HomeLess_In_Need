@@ -65,29 +65,7 @@ public class LoginActivity extends AppCompatActivity  {
                 username = editTextUserName.getText().toString();
                 password = editTextPassword.getText().toString();
 
-
-
                 new JsonTask().execute("http://52.206.200.215:3000/api/v1/user/" + username);
-//                new JsonTask().execute("https://path.blue/404/");
-//                HttpClient httpclient = new DefaultHttpClient();
-//                HttpGet httpget= new HttpGet(URL);
-//
-//                HttpResponse response = httpclient.execute(httpget);
-//
-//                if(response.getStatusLine().getStatusCode()==200){
-//                    String server_response = EntityUtils.toString(response.getEntity());
-//                    Log.i("Server response", server_response );
-//                } else {
-//                    Log.i("Server response", "Failed to get server response" );
-//                }
-
-
-
-
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-                //SendDataToServer(GetUsername, GetPassword);
-
             }
         });
 

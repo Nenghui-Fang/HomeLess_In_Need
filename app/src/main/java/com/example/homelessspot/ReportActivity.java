@@ -37,7 +37,8 @@ public class ReportActivity extends AppCompatActivity {
 //    String[] permissions = {"android.permission.WRITE_EXTERNAL_STORAGE"};
 //    requestPermissions(permissions, RC_PERMISSIONS);
 
-
+    String name;
+    String[] reportKindname;
     ImageView Image_1, Image_2, Image_3;
 
     @Override
@@ -45,13 +46,21 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+        Bundle bundle=getIntent().getExtras();
+        name = bundle.getString("name");
+        reportKindname = bundle.getStringArray("reportKindname");
+        for(int i =0 ; i< reportKindname.length; i++){
+            Log.d("reportKindname",reportKindname[i]);
+        }
+
+        this.setTitle("Welcome! " + name);
+
+
         if (Build.VERSION.SDK_INT >= 23) {
             int REQUEST_CODE_CONTACT = 101;
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            //验证是否许可权限
             for (String str : permissions) {
                 if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
-                    //申请权限
                     this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
                     return;
                 }
@@ -63,8 +72,10 @@ public class ReportActivity extends AppCompatActivity {
         Image_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                dispatchTakePictureIntent();
+                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+               // dispatchTakePictureIntent();
             }
         });
 
@@ -73,8 +84,10 @@ public class ReportActivity extends AppCompatActivity {
         Image_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                dispatchTakePictureIntent();
+                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+//                dispatchTakePictureIntent();
             }
         });
 
@@ -83,8 +96,10 @@ public class ReportActivity extends AppCompatActivity {
         Image_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                dispatchTakePictureIntent();
+                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+//                dispatchTakePictureIntent();
             }
         });
 
