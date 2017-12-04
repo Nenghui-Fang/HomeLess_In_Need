@@ -40,7 +40,7 @@ public class ReportActivity extends AppCompatActivity {
     String name;
     int reporter_id;
     String[] reportKindname;
-    ImageView Image_1, Image_2, Image_3;
+    ImageView Image_1, Image_2, Image_3,Image_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class ReportActivity extends AppCompatActivity {
             Log.d("reportKindname",reportKindname[i]);
         }
 
-        this.setTitle("Welcome! " + name);
+        //this.setTitle("Welcome! " + name);
 
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -96,6 +96,18 @@ public class ReportActivity extends AppCompatActivity {
         Image_3 = (ImageView) findViewById(R.id.imageView6);
 
         Image_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+//                dispatchTakePictureIntent();
+            }
+        });
+
+        Image_4 = (ImageView) findViewById(R.id.imageView4);
+
+        Image_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);

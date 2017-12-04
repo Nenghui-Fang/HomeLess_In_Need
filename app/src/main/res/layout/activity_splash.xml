@@ -15,11 +15,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:text="Homeless in Need"
         android:textColor="@android:color/white"
         android:textSize="36sp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold" />
 </RelativeLayout>

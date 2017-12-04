@@ -11,6 +11,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
 
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="Welcome">
         </activity>
 
 
@@ -32,14 +34,14 @@
 
         <activity android:name=".LoginActivity"
             android:label="Login">
-
         </activity>
 
-        <activity android:name=".ReportActivity">
-
+        <activity android:name=".ReportActivity"
+            android:label="Choose the available resource">
         </activity>
 
-        <activity android:name=".ReportSubmit">
+        <activity android:name=".ReportSubmit"
+            android:label="Report Submit">
 
         </activity>
 

@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity  {
         editTextPassword = (EditText) findViewById(R.id.TextPassword);
 
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        txtJson = (TextView) findViewById(R.id.textView5);
+        //txtJson = (TextView) findViewById(R.id.textView5);
 
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {

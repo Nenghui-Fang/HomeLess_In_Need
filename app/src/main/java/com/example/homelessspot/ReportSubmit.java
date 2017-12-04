@@ -192,9 +192,9 @@ public class ReportSubmit extends AppCompatActivity {
                     in.close();
                     return sb.toString();
                 }
-                else {
-                    return new String("false : "+responseCode);
-                }
+//                else {
+//                    return new String("false : "+responseCode);
+//                }
             }
             catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -211,8 +211,6 @@ public class ReportSubmit extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if(!result.equals(null)) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Waiting for Server response... ", Toast.LENGTH_SHORT);
-                    toast.show();
 
                     try {
                         int reportID;
@@ -221,6 +219,8 @@ public class ReportSubmit extends AppCompatActivity {
                         reportID = json.getInt("@reportId");
                         Log.d("PostExecute", ""+ reportID);
 
+                        Toast toast = Toast.makeText(getApplicationContext(), "Report Submitted! ", Toast.LENGTH_SHORT);
+                        toast.show();
 
                             Intent intent = new Intent(ReportSubmit.this, MainActivity.class);
 //                            intent.putExtra("reportKindname", reportKindname);

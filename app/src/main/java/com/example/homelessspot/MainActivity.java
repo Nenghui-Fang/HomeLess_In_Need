@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -27,19 +27,19 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog pd;
     String name;
     String reportkindUrl = "http://52.206.200.215:3000/api/v1/reportkind";
-    Button buttonRoport, buttonMap, buttonHelp;
+    ImageView buttonRoport, buttonMap, buttonHelp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bundle bundle=getIntent().getExtras();
         name = bundle.getString("name");
-        this.setTitle("Welcome! " + name);
+        this.setTitle("Welcome " + name +"!");
 
 
-        buttonRoport = (Button) findViewById(R.id.button_report);
-        buttonMap = (Button) findViewById(R.id.button_map);
-        buttonHelp = buttonMap = (Button) findViewById(R.id.button_help);
+        buttonRoport = (ImageView) findViewById(R.id.imageView4);
+        buttonMap = (ImageView) findViewById(R.id.map);
+        buttonHelp = (ImageView) findViewById(R.id.help);
 
         buttonRoport.setOnClickListener(new View.OnClickListener() {
 
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-                //SendDataToServer(GetUsername, GetPassword);
+//                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+//                startActivity(intent);
+
             }
         });
 
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, HelpActivity.class);
-                startActivity(intent);
-                //SendDataToServer(GetUsername, GetPassword);
+//                Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+//                startActivity(intent);
+
             }
         });
     }
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
 //                    toast.show();
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Pulling Available Report Kind... ", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Displaying Available Report Kind... ", Toast.LENGTH_SHORT);
                     toast.show();
 
                     try {
