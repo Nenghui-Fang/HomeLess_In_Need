@@ -27,20 +27,20 @@
         android:typeface="serif" />
 
     <EditText
+        android:id="@+id/TextUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="37dp"
-        android:id="@+id/TextUsername"
-        android:padding="10dp"
-        android:background="@android:color/background_light"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/usernameText"
+        android:layout_marginTop="34dp"
+        android:background="@android:color/background_light"
+        android:fontFamily="monospace"
         android:hint="Input Username"
         android:inputType="textPersonName"
-        android:fontFamily="monospace"
+        android:padding="10dp"
         android:typeface="serif" />
 
     <EditText
