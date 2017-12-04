@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.homelessspot.ReportActivity">
+    tools:context="com.example.homelessspot.ReportActivity"
+    android:background="@drawable/b1">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -34,7 +35,7 @@
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/clothes" />
+        app:srcCompat="@drawable/clothes_1" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -44,6 +45,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:srcCompat="@drawable/other_1" />
+        app:srcCompat="@drawable/more" />
 
 </android.support.constraint.ConstraintLayout>
