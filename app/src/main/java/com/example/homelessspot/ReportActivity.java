@@ -38,6 +38,7 @@ public class ReportActivity extends AppCompatActivity {
 //    requestPermissions(permissions, RC_PERMISSIONS);
 
     String name;
+    int reporter_id;
     String[] reportKindname;
     ImageView Image_1, Image_2, Image_3;
 
@@ -48,6 +49,7 @@ public class ReportActivity extends AppCompatActivity {
 
         Bundle bundle=getIntent().getExtras();
         name = bundle.getString("name");
+        reporter_id = bundle.getInt("reporter_id");
         reportKindname = bundle.getStringArray("reportKindname");
         for(int i =0 ; i< reportKindname.length; i++){
             Log.d("reportKindname",reportKindname[i]);
@@ -58,7 +60,7 @@ public class ReportActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 23) {
             int REQUEST_CODE_CONTACT = 101;
-            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
             for (String str : permissions) {
                 if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
                     this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
@@ -72,10 +74,10 @@ public class ReportActivity extends AppCompatActivity {
         Image_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
-                intent.putExtra("name", name);
-                startActivity(intent);
-               // dispatchTakePictureIntent();
+//                Intent intent = new Intent(ReportActivity.this, ReportSubmit.class);
+//                intent.putExtra("name", name);
+//                startActivity(intent);
+                dispatchTakePictureIntent();
             }
         });
 

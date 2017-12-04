@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
+import android.preference.PreferenceActivity;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -53,6 +55,11 @@ public class ReportSubmit extends AppCompatActivity {
     String inputString;
     String reportPostUrl = "http://52.206.200.215:3000/api/v1/report";
 
+    JSONObject JSObject= new JSONObject();;
+    int reporter_id, kind_id;
+    String location, description;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -64,8 +71,10 @@ public class ReportSubmit extends AppCompatActivity {
 
         InputText = (EditText)findViewById(R.id.editText);
         Image = (ImageView) findViewById(R.id.imageView);
-
         ButtonUpload = (Button)findViewById(R.id.button);
+
+
+
 
 //        Intent intent = getIntent();
 //        final String picUrl = intent.getExtras().getString("PicUrl");
@@ -79,7 +88,20 @@ public class ReportSubmit extends AppCompatActivity {
 
                 inputString = InputText.getText().toString();
                 Log.d("Input:", inputString);
-                new httpPost().execute(reportPostUrl,inputString);
+
+                try {
+                    JSObject.put("reporter_id", new Integer(1));
+                    JSObject.put("report_kind", new Integer(1));
+                    JSObject.put("location", "Boston");
+                    JSObject.put("description", inputString);
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+
+               String json_str = JSObject.toString();
+                new httpPost().execute(reportPostUrl,json_str);
 //                new uploadFileToServerTask().execute(picUrl);
 //                MultipartUtility multipart = new MultipartUtility(picUrl, charset);
 //
@@ -138,6 +160,8 @@ public class ReportSubmit extends AppCompatActivity {
                  urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
 
@@ -194,14 +218,14 @@ public class ReportSubmit extends AppCompatActivity {
                         int reportID;
                         JSONObject json = new JSONObject(result);
 
-                        reportID = json.getInt("reportId");
+                        reportID = json.getInt("@reportId");
                         Log.d("PostExecute", ""+ reportID);
 
 
-//                            Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+                            Intent intent = new Intent(ReportSubmit.this, MainActivity.class);
 //                            intent.putExtra("reportKindname", reportKindname);
-//                            intent.putExtra("name", name);
-//                            startActivity(intent);
+                            intent.putExtra("name", "test");
+                            startActivity(intent);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -212,7 +236,32 @@ public class ReportSubmit extends AppCompatActivity {
     }
 
 
-
+//    public class ImageUploader {
+//
+//        public static final String HTTP_LOCALHOST_8081_FILE_UPLOAD = "http://192.168.1.104:8081/file_upload";
+//
+//        public void upload(InputStream inputStream, String extension) {
+//            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+//            RequestParams requestParams = prepareRequestParams(inputStream, extension);
+//
+//            asyncHttpClient.post(HTTP_LOCALHOST_8081_FILE_UPLOAD, requestParams, new AsyncHttpResponseHandler() {
+//                @Override
+//                public void onSuccess(int statusCode, PreferenceActivity.Header[] headers, byte[] responseBody) {
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                    error.printStackTrace();
+//                }
+//            });
+//
+//        }
+//
+//        private RequestParams prepareRequestParams(InputStream inputStream, String extension) {
+//            RequestParams requestParams = new RequestParams();
+//            requestParams.put("image", inputStream, "image." + extension, "image/jpeg");
+//            return requestParams;
+//        }}
 
 
     public class MultipartUtility {
@@ -358,7 +407,7 @@ public class ReportSubmit extends AppCompatActivity {
                 int maxBufferSize = 1 * 1024 * 1024;
 
 
-                java.net.URL url = new URL("http://52.206.200.215:3000/api/recognize/1");
+                java.net.URL url = new URL("http://52.206.200.215:3000/api/v1/report");
                 Log.d("URl_add:", "url " + url);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

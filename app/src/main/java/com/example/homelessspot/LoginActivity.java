@@ -159,11 +159,16 @@ public class LoginActivity extends AppCompatActivity  {
 
                     try {
                         String name;
+                        int reporter_id;
                         JSONObject json = new JSONObject(result);
                         name = json.getString("name");
+
+                        reporter_id =json.getInt("reporter_id");
+
                         Log.d("PostExecute", name);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("name", name);
+                        intent.putExtra("reporter_id", reporter_id);
                         startActivity(intent);
 
                     } catch (JSONException e) {
